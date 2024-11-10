@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: app-ohtgileknagladsnga    # Replace with your app name
+  AZURE_WEBAPP_NAME: kjiaeqcesfvihbqwkusc    # Replace with your app name
   AZURE_RG_NAME: ohtgileknagladsnga
   PYTHON_VERSION: '3.12'              # Adjust based on your Python version
   NODE_VERSION: '18'                  # Adjust based on your Node.js version
