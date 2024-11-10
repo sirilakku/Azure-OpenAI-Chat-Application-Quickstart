@@ -44,7 +44,7 @@ jobs:
           mkdir temp
           cp -r [!temp]* temp/
           cd temp
-          zip -r ../deploy.zip .
+          zip -r ../deploy.zip . && echo "successfully zipped" || echo "failure zipping"
           
       - name: Login to Azure
         uses: azure/login@v1
