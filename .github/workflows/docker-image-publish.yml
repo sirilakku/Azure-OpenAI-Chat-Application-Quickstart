@@ -15,17 +15,23 @@ jobs:
       uses: Azure/docker-login@v2
       with:
         # Container registry username
-        username: ${{ secrets.SAMPLEAPP_ACR_USERNAME }}
+        username: ${{ secrets.ACR_USERNAME }}
         # Container registry password
-        password: ${{ secrets.SAMPLEAPP_ACR_PASSWORD }}
+        password: ${{ secrets.ACR_PASSWORD }}
         # Container registry server url
-        login-server: sampleappaoaichatgpt.azurecr.io
+        login-server: ${{ secrets.ACR_SERVER }}
         
     - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run:         
-        docker build . --file WebApp.Dockerfile --tag sampleappaoaichatgpt.azurecr.io/sample-app-aoai-chatgpt:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-        docker tag sampleappaoaichatgpt.azurecr.io/sample-app-aoai-chatgpt:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER sampleappaoaichatgpt.azurecr.io/sample-app-aoai-chatgpt:latest;
-        docker push sampleappaoaichatgpt.azurecr.io/sample-app-aoai-chatgpt:$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER;
-        docker push sampleappaoaichatgpt.azurecr.io/sample-app-aoai-chatgpt:latest;
-      
+    - name: Build and Push Docker image
+      env:
+        ACR_LOGIN_SERVER: ${{ secrets.ACR_SERVER }}
+        REPOSITORY_NAME: ${{ secrets.REPOSITORY_NAME }}
+      run: |
+        # Build with ACR server and repository name
+        IMAGE_NAME="${ACR_LOGIN_SERVER}/${REPOSITORY_NAME}"
+        VERSION="$(date +'%Y-%m-%d')_$GITHUB_RUN_NUMBER"
+        
+        docker build . --file WebApp.Dockerfile --tag ${IMAGE_NAME}:${VERSION}
+        docker tag ${IMAGE_NAME}:${VERSION} ${IMAGE_NAME}:latest
+        docker push ${IMAGE_NAME}:${VERSION}
+        docker push ${IMAGE_NAME}:latest

@@ -66,10 +66,11 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: 'Deploy to Azure Web App'
+      - name: Deploy to Azure Web App
         uses: azure/webapps-deploy@v2
         id: deploy-to-webapp
         with:
-          app-name: '${{ env.AZURE_WEBAPP_NAME }}'
+          app-name: ${{ env.AZURE_WEBAPP_NAME }}
           resource-group-name: ${{ env.AZURE_RG_NAME }}
           slot-name: 'development'
+          images: '${{ secrets.ACR_SERVER }}/${{ secrets.REPOSITORY_NAME }}:latest'
