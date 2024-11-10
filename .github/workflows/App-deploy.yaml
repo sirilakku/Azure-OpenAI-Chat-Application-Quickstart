@@ -1,14 +1,14 @@
 name: Build and Deploy to Azure
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "main", "dev" ]
   workflow_dispatch:
 
 env:
-  AZURE_WEBAPP_NAME: your-app-name    # Replace with your app name
-  PYTHON_VERSION: '3.10'              # Adjust based on your Python version
+  AZURE_WEBAPP_NAME: start-chat-app-az-openai    # Replace with your app name
+  PYTHON_VERSION: '3.12'              # Adjust based on your Python version
   NODE_VERSION: '18'                  # Adjust based on your Node.js version
 
 jobs:
@@ -40,9 +40,9 @@ jobs:
           
       - name: Create deployment package
         run: |
-          mkdir deployment
-          cp -r * deployment/
-          cd deployment
+          mkdir temp
+          cp -r * temp/
+          cd temp
           zip -r ../deploy.zip .
           
       - name: Login to Azure
