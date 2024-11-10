@@ -41,7 +41,7 @@ jobs:
       - name: Create deployment package
         run: |
           mkdir temp
-          cp -r * temp/
+          cp -r [!temp]* temp/
           cd temp
           zip -r ../deploy.zip .
           
