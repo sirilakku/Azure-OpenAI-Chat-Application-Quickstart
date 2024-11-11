@@ -26,13 +26,12 @@ jobs:
           # Container registry password
           password: ${{ secrets.DOCKER_PASSWORD }}
           # Container registry server url
-        
+      - run: 'echo "${DOCKER_USERNAME}/${REPOSITORY_NAME}"
+        shell: bash
       - uses: actions/checkout@v3
       - name: Build and Push Docker image
         run: |
-          IMAGE_NAME="${DOCKER_USERNAME}/${REPOSITORY_NAME}"
-          echo ${IMAGE_NAME}
-          
+          IMAGE_NAME="${DOCKER_USERNAME}/${REPOSITORY_NAME}"          
           docker build . --file WebApp.Dockerfile --tag ${IMAGE_NAME}:latest
           docker push ${IMAGE_NAME}:latest
 
