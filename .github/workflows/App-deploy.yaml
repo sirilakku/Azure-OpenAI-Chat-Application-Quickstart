@@ -26,8 +26,9 @@ jobs:
           # Container registry password
           password: ${{ secrets.DOCKER_PASSWORD }}
           # Container registry server url
-      - run: 'echo "${DOCKER_USERNAME}/${REPOSITORY_NAME}"
-        shell: bash
+          run: 'echo "${DOCKER_USERNAME}/${REPOSITORY_NAME}"
+            shell: bash
+
       - uses: actions/checkout@v3
       - name: Build and Push Docker image
         run: |
