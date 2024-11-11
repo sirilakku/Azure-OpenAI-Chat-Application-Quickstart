@@ -35,7 +35,6 @@ jobs:
 
           
           docker build . --file WebApp.Dockerfile
-          docker tag ${IMAGE_NAME}:latest
           docker push ${IMAGE_NAME}:latest
 
       
