@@ -66,18 +66,4 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           resource-group-name: ${{ env.AZURE_RG_NAME }}
           images: '${{ secrets.ACR_SERVER }}/${{ secrets.REPOSITORY_NAME }}:latest'
-          app-settings-json: |
-          [
-            {
-              "name": "DOCKER_REGISTRY_SERVER_URL",
-              "value": "${{ secrets.ACR_SERVER }}"
-            },
-            {
-              "name": "DOCKER_REGISTRY_SERVER_USERNAME",
-              "value": "${{ secrets.ACR_USERNAME }}"
-            },
-            {
-              "name": "DOCKER_REGISTRY_SERVER_PASSWORD",
-              "value": "${{ secrets.ACR_PASSWORD }}"
-            }
-          ]
+          app-settings-json: '[{"name":"DOCKER_REGISTRY_SERVER_URL","value":"${{ secrets.ACR_SERVER }}"},{"name":"DOCKER_REGISTRY_SERVER_USERNAME","value":"${{ secrets.ACR_USERNAME }}"},{"name":"DOCKER_REGISTRY_SERVER_PASSWORD","value":"${{ secrets.ACR_PASSWORD }}"}]'
